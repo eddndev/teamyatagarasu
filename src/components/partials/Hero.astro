@@ -1,0 +1,69 @@
+---
+// Imagen LCP (Largest Contentful Paint)
+const lcpImage = {
+  // Usar formatos modernos (AVIF/WEBP). Aquí usamos WebP como ejemplo.
+  src: "/assets/covers/hero-banner.webp",
+  alt: "Banner estilo pixel art mostrando personajes de los juegos de Team Yatagarasu.",
+  // Dimensiones explícitas para prevenir CLS (Cumulative Layout Shift)
+  width: 1200,
+  height: 450
+};
+---
+
+<header class="relative overflow-hidden bg-gray-900 pt-16 pb-12 md:pt-24 md:pb-16">
+  <div class="absolute inset-0">
+    <!-- Imagen LCP: Optimizada para carga prioritaria -->
+    <img
+      src={lcpImage.src}
+      alt={lcpImage.alt}
+      width={lcpImage.width}
+      height={lcpImage.height}
+      class="w-full h-full object-cover opacity-20 md:opacity-30 pixelated"
+      fetchpriority="high" 
+      decoding="sync"
+    />
+    <!-- Overlay para mejorar contraste y legibilidad -->
+    <div class="absolute inset-0 bg-gradient-to-b from-gray-950/60 via-gray-950/80 to-gray-950/95"></div>
+  </div>
+
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <div class="text-center">
+      <p class="text-sm font-display text-maroon-400 tracking-widest uppercase mb-4">
+        Indie Dev & Pixel Artist
+      </p>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-display text-gray-200 leading-snug tracking-wider">
+        Yasu /<br class="sm:hidden" /> Team Yatagarasu
+      </h1>
+      <p class="mt-4 md:mt-6 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto font-body">
+        Creando experiencias retro con motores modernos. Bienvenidos al nido.
+      </p>
+
+      <div class="mt-10 flex justify-center gap-4">
+        <a
+          href="#projects"
+          class="
+            px-6 py-3 bg-maroon-500 text-white font-display text-sm uppercase
+            border-2 border-maroon-700 shadow-md
+            transition duration-200 ease-in-out
+            hover:bg-maroon-400 hover:border-maroon-500
+            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-maroon-500 focus-visible:ring-offset-gray-950
+          "
+        >
+          Proyectos
+        </a>
+        <a
+          href="#contact"
+          class="
+            px-6 py-3 bg-gray-800 text-gray-200 font-display text-sm uppercase
+            border-2 border-gray-700 shadow-md
+            transition duration-200 ease-in-out
+            hover:bg-gray-700 hover:border-gray-600
+            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-500 focus-visible:ring-offset-gray-950
+          "
+        >
+          Contacto
+        </a>
+      </div>
+    </div>
+  </div>
+</header>

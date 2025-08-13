@@ -1,0 +1,34 @@
+<section id="contact" class="py-16 md:py-24 bg-gray-950">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-3xl md:text-4xl font-display text-gray-200 mb-4 tracking-wider">
+      Contacto
+    </h2>
+    <p class="text-lg text-gray-400 mb-10 max-w-xl mx-auto font-body">
+      ¿Interesado en colaborar, consultas de prensa o simplemente quieres hablar sobre desarrollo de juegos? No dudes en contactarme.
+    </p>
+
+    <div class="mb-12">
+      <a
+        href="mailto:contact@teamyatagarasu.com"
+        class="
+          inline-block px-8 py-4 bg-maroon-500 text-white font-display text-lg uppercase
+          border-2 border-maroon-700 shadow-lg
+          transition duration-200 ease-in-out
+          hover:bg-maroon-400 hover:border-maroon-500
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-maroon-500 focus-visible:ring-offset-gray-950
+        "
+      >
+        Enviar Email a Yasu
+      </a>
+    </div>
+
+    <!-- Hook para Futuro Formulario (Isla Astro) -->
+    <!--
+      Si se añade un formulario de contacto, debe implementarse como una Isla Astro
+      para manejar la validación y el envío del lado del cliente sin JS global.
+      Ejemplo: <ContactFormIsland client:idle />
+      Usamos 'client:idle' ya que el formulario tiene menor prioridad que el contenido inicial, asegurando un buen INP (Interaction to Next Paint).
+    -->
+
+  </div>
+</section>

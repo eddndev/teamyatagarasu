@@ -1,0 +1,101 @@
+---
+// Datos de ejemplo
+const projects = [
+  {
+    title: "Crimson Tactics",
+    year: 2024,
+    role: "Lead Developer, Artist",
+    tags: ["Godot", "Tactical RPG", "Aseprite"],
+    cover: { src: "/assets/covers/crimson-tactics.webp", width: 640, height: 360 },
+    sprite: { src: "/assets/sprites/ct-knight.gif", width: 64, height: 64 }, // GIF animado
+  },
+  {
+    title: "Neon Runner",
+    year: 2023,
+    role: "Solo Developer",
+    tags: ["Unity", "Platformer", "Cyberpunk"],
+    cover: { src: "/assets/covers/neon-runner.webp", width: 640, height: 360 },
+    sprite: { src: "/assets/sprites/nr-runner.png", width: 64, height: 64 },
+  },
+  {
+    title: "Project 'Karasu'",
+    year: "WIP",
+    role: "Concept, Art Direction",
+    tags: ["Metroidvania", "Concept Art"],
+    cover: { src: "/assets/covers/project-karasu.webp", width: 640, height: 360 },
+    sprite: { src: "/assets/sprites/pk-crow.png", width: 64, height: 64 },
+  },
+];
+---
+
+<section id="projects" class="py-16 md:py-24 bg-gray-950">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl md:text-4xl font-display text-gray-200 mb-12 text-center tracking-wider">
+      Proyectos Destacados
+    </h2>
+
+    <!-- Grid Responsivo: Mobile-first (1 col), MD (2 cols), LG (3 cols) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {projects.map((project, index) => (
+        // Microinteracción: Leve translate y sombra al hacer hover. focus-within para A11y.
+        <article class="group relative bg-gray-900 border border-gray-800 shadow-xl overflow-hidden transition duration-250 ease-in-out transform hover:-translate-y-1 hover:shadow-2xl hover:border-maroon-500 focus-within:ring-2 focus-within:ring-maroon-500 focus-within:ring-offset-2 focus-within:ring-offset-gray-950">
+
+          <!-- Cover Image Container (16:9) -->
+          <div class="relative aspect-[16/9] bg-gray-800">
+            <img
+              src={project.cover.src}
+              alt={`Portada de ${project.title}`}
+              width={project.cover.width}
+              height={project.cover.height}
+              loading={index < 2 ? "eager" : "lazy"} 
+              decoding="async"
+              class="w-full h-full object-cover pixelated transition duration-300 group-hover:opacity-70"
+            />
+
+            <!-- Sprite Reveal on Hover/Focus (CSS Only) -->
+            <div class="absolute inset-0 flex items-center justify-center bg-gray-900/80 opacity-0 transition duration-250 group-hover:opacity-100 group-focus-within:opacity-100" aria-hidden="true">
+              <img
+                src={project.sprite.src}
+                alt=""
+                width={project.sprite.width}
+                height={project.sprite.height}
+                loading="lazy"
+                class="pixelated transform scale-[200%]" 
+              />
+            </div>
+          </div>
+
+          <div class="p-6">
+            <h3 class="text-xl font-display text-gray-200 mb-2 tracking-wide">
+              <!-- Enlace accesible que cubre toda la tarjeta (stretched link) -->
+              <a href="#" class="focus:outline-none">
+                <span class="absolute inset-0" aria-hidden="true"></span>
+                {project.title}
+              </a>
+            </h3>
+            <p class="text-sm text-gray-400 mb-5 font-body">
+              {project.year} | {project.role}
+            </p>
+
+            <!-- Tags/Pills Granate -->
+            <div class="flex flex-wrap gap-2">
+              {project.tags.map(tag => (
+                <span class="px-3 py-1 bg-maroon-700 text-xs font-medium text-white border border-maroon-500">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Nota sobre Islas Interactivas -->
+    <!--
+      Si se necesitara una preview interactiva compleja (ej. mini-juego o carrusel interactivo),
+      se reemplazaría el <article> por una Isla Astro:
+      <InteractiveProjectCard client:visible project={project} />
+      'client:visible' asegura que el JS solo carga cuando el componente entra en el viewport, protegiendo el TBT (Total Blocking Time).
+    -->
+  </div>
+</section>

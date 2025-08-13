@@ -1,0 +1,96 @@
+
+---
+import "../styles/global.css";
+const {
+  title = "Team Yatagarasu | Indie Game Dev & Pixel Art by Yasu",
+  description = "Portfolio de Yasu (Team Yatagarasu), desarrollador indie y pixel artist especializado en juegos de estilo retro con Godot y Aseprite.",
+  image = "/assets/logos/yatagarasu-og.png",
+} = Astro.props;
+
+const siteName = "Team Yatagarasu";
+const canonicalUrl = Astro.url.href;
+// Usamos el dominio del config de Astro si está disponible
+const siteUrl = Astro.site?.toString() || 'https://www.teamyatagarasu.com';
+
+const yasuSocials = [
+    "https://twitter.com/yasu_dev",
+    "https://github.com/yasu-dev",
+    "https://yasu-dev.itch.io"
+];
+
+// JSON-LD: Organization (Team Yatagarasu)
+const jsonLdOrg = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": siteName,
+  "url": siteUrl,
+  "logo": `${siteUrl}/assets/logos/yatagarasu-icon.png`,
+  "sameAs": yasuSocials
+};
+
+// JSON-LD: Person (Yasu)
+const jsonLdPerson = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Yasu",
+  "alternateName": "YasuDev",
+  "url": siteUrl,
+  "image": `${siteUrl}/assets/avatars/yasu-pixel.png`,
+  "jobTitle": "Indie Game Developer & Pixel Artist",
+  "worksFor": {
+    "@type": "Organization",
+    "name": siteName
+  },
+  "sameAs": yasuSocials
+};
+---
+
+<!doctype html>
+<!-- Aplicamos el fondo base y la fuente por defecto. scroll-smooth para navegación interna. -->
+<html lang="es" class="bg-gray-950 text-gray-200 font-body antialiased scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.site).toString()} />
+    <meta property="og:site_name" content={siteName} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+
+    <!-- JSON-LD Injection -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLdOrg)} />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLdPerson)} />
+
+     <!-- CWV: Precarga de fuente crítica para acelerar el renderizado del texto -->
+     <link rel="preload" href="/assets/fonts/PressStart2P.woff2" as="font" type="font/woff2" crossorigin>
+
+  </head>
+  <!-- Aplicamos el efecto scanlines -->
+  <body class="min-h-screen flex flex-col scanlines">
+    
+    <!-- A11y: Skip Link -->
+    <a href="#content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-gray-800 focus:text-white focus:p-3 focus:ring-2 focus:ring-maroon-500">
+      Saltar al contenido principal
+    </a>
+
+    <main id="content" class="flex-grow">
+      <slot />
+    </main>
+
+    <!-- Footer slot -->
+    <slot name="footer" />
+  </body>
+</html>

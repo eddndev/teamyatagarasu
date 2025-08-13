@@ -1,0 +1,22 @@
+---
+const { title, year, role, tags = [], cover, href="#" } = Astro.props;
+---
+<article class="group rounded-xl overflow-hidden ring-1 ring-white/10 bg-neutral-900/50">
+  <a href={href} class="block">
+    <figure class="aspect-[16/9] overflow-hidden">
+      <img
+        src={cover}
+        alt={`Portada del proyecto ${title}`}
+        width="1280" height="720" decoding="async" loading="lazy"
+        class="w-full h-full object-cover [image-rendering:pixelated] group-hover:scale-[1.02] transition-transform duration-300"
+      />
+    </figure>
+    <div class="p-4">
+      <h3 class="text-lg font-semibold">{title}</h3>
+      <p class="mt-1 text-xs opacity-80">{role} · {year}</p>
+      <ul class="mt-3 flex flex-wrap gap-2 text-[11px]">
+        {tags.map((t) => <li class="rounded px-2 py-0.5 bg-amber-500/20">{t}</li>)}
+      </ul>
+    </div>
+  </a>
+</article>
