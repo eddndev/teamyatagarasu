@@ -1,0 +1,42 @@
+---
+// src/components/islands/SmoothScrollIsland.astro
+// Lenis + GSAP ScrollTrigger con guard de reduced motion.
+// Nota: SIN `is:inline` para que Astro/Vite procese el módulo y resuelva imports.
+---
+<div aria-hidden="true" class="hidden"></div>
+
+<script>
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // NUNCA uses `return` en top-level de un módulo; mejor una condición que envuelva el init.
+  if (!prefersReduced) {
+    (async () => {
+      const { default: Lenis } = await import('lenis');
+      const { default: gsap } = await import('gsap');
+      const { default: ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+
+      // ⚙️ Config base (anchors, smooth sin autoRaf porque lo moverá el ticker de GSAP)
+      const lenis = new Lenis({
+        autoRaf: false,
+        smoothWheel: true,
+        anchors: true, // habilita anclas con Lenis
+      });
+
+      // 🔄 Sincroniza Lenis ↔ ScrollTrigger (patrón recomendado)
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+
+      // Ajuste al refrescar/resize
+      ScrollTrigger.addEventListener('refresh', () => lenis.resize());
+      ScrollTrigger.refresh();
+
+      // Debug opcional
+      console.log('[SmoothScrollIsland] Lenis + ScrollTrigger inicializados');
+      // window.lenis = lenis;
+    })();
+  } else {
+    console.log('[SmoothScrollIsland] Reduced motion activo. No se inicializa Lenis/GSAP.');
+  }
+</script>

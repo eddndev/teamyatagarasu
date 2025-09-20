@@ -1,69 +1,113 @@
 ---
-// Imagen LCP (Largest Contentful Paint)
-const lcpImage = {
-  // Usar formatos modernos (AVIF/WEBP). Aquí usamos WebP como ejemplo.
-  src: "/assets/covers/hero-banner.webp",
-  alt: "Banner estilo pixel art mostrando personajes de los juegos de Team Yatagarasu.",
-  // Dimensiones explícitas para prevenir CLS (Cumulative Layout Shift)
-  width: 1200,
-  height: 450
-};
+import LeddingHeroIsland from "../islands/LeddingHeroIsland.astro";
+
+/**
+* Configuración del Logo.
+* Asegúrate de que los assets existan en public/assets/brand/
+*/
+const logoWidthAttr = 300;
+const logoHeightAttr = 141; // <-- CONFIRMA que esta altura es correcta para evitar CLS.
+// Ajustamos los tamaños para el nuevo diseño centrado y más impactante
+const logoClampMin = 200;  // Mínimo en móvil
+const logoClampMax = 340;  // Máximo en desktop
 ---
 
-<header class="relative overflow-hidden bg-gray-900 pt-16 pb-12 md:pt-24 md:pb-16">
-  <div class="absolute inset-0">
-    <!-- Imagen LCP: Optimizada para carga prioritaria -->
-    <img
-      src={lcpImage.src}
-      alt={lcpImage.alt}
-      width={lcpImage.width}
-      height={lcpImage.height}
-      class="w-full h-full object-cover opacity-20 md:opacity-30 pixelated"
-      fetchpriority="high" 
-      decoding="sync"
-    />
-    <!-- Overlay para mejorar contraste y legibilidad -->
-    <div class="absolute inset-0 bg-gradient-to-b from-gray-950/60 via-gray-950/80 to-gray-950/95"></div>
+<section id="hero"
+ class="relative min-h-svh overflow-hidden bg-[#0B0B0C] text-gray-100 flex items-center justify-center"
+ aria-label="Hero Team Yatagarasu">
+
+  <!-- 1. FONDO: Panel LED (Ledding) -->
+ <div id="ledding-animation-container"
+   class="absolute inset-0 z-0 pointer-events-none opacity-90"></div>
+
+  <!-- 2. ATMÓSFERA: Scanlines y Glow Retro -->
+  <!-- Usamos pseudo-elementos para combinar efectos en una sola capa -->
+  <div id="hero-atmosphere" aria-hidden="true"
+       class="absolute inset-0 z-10 pointer-events-none
+              /* Scanlines CRT (Efecto monitor antiguo) */
+              bg-[repeating-linear-gradient(to_bottom,rgba(0,0,0,0.3)_0,rgba(0,0,0,0.3)_2px,transparent_2px,transparent_4px)]
+              /* (::after) Glow Central Rojo: Destaca el contenido y añade ambiente */
+              after:absolute after:inset-0
+              after:bg-[radial-gradient(ellipse_at_center,rgba(156,20,42,0.30)_0%,rgba(11,11,12,0)_65%)]
+              /* (::before) Viñeta sutil en los bordes */
+              before:absolute before:inset-0
+              before:bg-[radial-gradient(ellipse_at_center,transparent_60%,rgba(0,0,0,0.85)_100%)]
+              ">
   </div>
 
-  <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-    <div class="text-center">
-      <p class="text-sm font-display text-maroon-400 tracking-widest uppercase mb-4">
-        Indie Dev & Pixel Artist
-      </p>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-display text-gray-200 leading-snug tracking-wider">
-        Yasu /<br class="sm:hidden" /> Team Yatagarasu
-      </h1>
-      <p class="mt-4 md:mt-6 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto font-body">
-        Creando experiencias retro con motores modernos. Bienvenidos al nido.
-      </p>
+  <!-- 3. CONTENIDO PRINCIPAL (Centrado y Estilizado) -->
+ <div class="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 py-20
+       flex flex-col items-center text-center">
 
-      <div class="mt-10 flex justify-center gap-4">
-        <a
-          href="#projects"
-          class="
-            px-6 py-3 bg-maroon-500 text-white font-display text-sm uppercase
-            border-2 border-maroon-700 shadow-md
-            transition duration-200 ease-in-out
-            hover:bg-maroon-400 hover:border-maroon-500
-            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-maroon-500 focus-visible:ring-offset-gray-950
-          "
-        >
-          Proyectos
-        </a>
-        <a
-          href="#contact"
-          class="
-            px-6 py-3 bg-gray-800 text-gray-200 font-display text-sm uppercase
-            border-2 border-gray-700 shadow-md
-            transition duration-200 ease-in-out
-            hover:bg-gray-700 hover:border-gray-600
-            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-gray-500 focus-visible:ring-offset-gray-950
-          "
-        >
-          Contacto
-        </a>
-      </div>
-    </div>
+    <!-- Indicador de estado (Estética HUD) -->
+  <div class="mb-6 text-xs uppercase tracking-[0.3em] text-[#9C142A] font-mono opacity-70 [text-shadow:0_0_5px_rgba(156,20,42,0.5)]" data-anim="hud-top">
+   // INICIANDO SISTEMA_
   </div>
-</header>
+
+
+    <!-- Título Principal (H1 para SEO) -->
+    <!-- Sombra de texto para asegurar legibilidad sobre el fondo LED -->
+  <h1 class="max-w-3xl mb-10 text-xl sm:text-2xl lg:text-3xl text-gray-200/95 leading-relaxed [text-shadow:0_2px_8px_black]" data-anim="subtitle">
+        Indie games con <strong class="font-semibold text-white">ADN retro</strong>.
+        <br class="hidden sm:inline"/>
+        Enfoque en <strong class="text-white">Pixel-art</strong>, <strong class="text-white">game feel</strong> y <strong class="text-white">rendimiento</strong>. Por <strong>Yasu</strong>.
+  </h1>
+
+  <!-- HUD Chips (Rediseñados estilo Inventario/Skills con Clip-Path) -->
+  <div class="flex flex-wrap justify-center gap-4 mb-12 text-sm" data-anim="hud">
+
+      <!-- Chip 1 -->
+   <span class="chip-retro group">
+        <!-- Usando referencia a SVG sprite -->
+    <svg aria-hidden="true" class="size-5 opacity-80 group-hover:opacity-100 transition-opacity">
+     <use href="#gamepad-icon"></use>
+    </svg>
+    Gameplay & UX
+   </span>
+
+      <!-- Chip 2: Destacado -->
+   <span class="chip-retro group border-[#9C142A]/70 bg-[#9C142A]/20 hover:bg-[#9C142A]/30">
+         <!-- Usando el ID 'godot-icon' -->
+    <svg aria-hidden="true" class="size-5 opacity-80 group-hover:opacity-100 transition-opacity text-[#FF5575]">
+     <use href="#godot-icon"></use>
+    </svg>
+    Godot · Shaders
+   </span>
+
+      <!-- Chip 3 -->
+   <span class="chip-retro group">
+    <svg aria-hidden="true" class="size-5 opacity-80 group-hover:opacity-100 transition-opacity">
+     <use href="#code-icon"></use>
+    </svg>
+    Code & Tools
+   </span>
+  </div>
+
+  <!-- CTAs (Rediseñados estilo Arcade/Pixelado) -->
+  <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto" data-anim="cta">
+
+   <!-- Botón Primario: Estilo "Start Game" -->
+   <a href="#proyectos" aria-label="Ver proyectos"
+    class="btn-primary-retro group">
+    <span class="relative z-10">Ver proyectos</span>
+   </a>
+
+   <!-- Botón Secundario: Estilo "Options" -->
+   <a href="#contacto" aria-label="Ir a contacto"
+    class="btn-secondary-retro">
+    Contacto
+   </a>
+  </div>
+
+ </div>
+
+  <!-- 4. Navegación Rápida (Sutil, estilo terminal) -->
+  <nav class="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 hidden md:flex gap-8 text-sm text-gray-400/70 [text-shadow:0_2px_8px_black]" aria-label="Navegación rápida">
+    <a href="#acerca" class="hover:text-white transition-colors tracking-widest hover:text-shadow-glow">[ ACERCA ]</a>
+    <a href="#stack" class="hover:text-white transition-colors tracking-widest hover:text-shadow-glow">[ STACK ]</a>
+    <a href="#contacto" class="hover:text-white transition-colors tracking-widest hover:text-shadow-glow">[ CONTACTO ]</a>
+  </nav>
+
+ <!-- Carga diferida de Ledding -->
+ <LeddingHeroIsland />
+</section>

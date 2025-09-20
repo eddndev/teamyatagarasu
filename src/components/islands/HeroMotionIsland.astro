@@ -1,0 +1,48 @@
+---
+---
+<div aria-hidden="true" class="hidden"></div>
+
+<script>
+    const root = "#hero";
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!prefersReduced) {
+    (async () => {
+      const { default: gsap } = await import('gsap');
+      const { default: ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+
+      const el = document.querySelector(root);
+      if (!el) return;
+
+      // Apariciones RÁPIDAS (150–450 ms aprox., recomendado para UI snappy)
+      const tl = gsap.timeline({ defaults: { ease: 'power2.out', duration: 0.45 } });
+      tl.from(`${root} [data-anim="title"]`,    { y: 18, opacity: 0 })
+        .from(`${root} [data-anim="subtitle"]`, { y: 12, opacity: 0 }, "-=0.25")
+        .from(`${root} [data-anim="cta"]`,      { y: 8,  opacity: 0, scale: 0.98 }, "-=0.25");
+
+      // Parallax MUY sutil del fondo al hacer scroll
+      gsap.to(`${root} [data-anim="bg"]`, {
+        yPercent: -6,
+        ease: "none",
+        scrollTrigger: { trigger: root, start: "top top", end: "bottom top", scrub: 0.5 }
+      });
+
+      // Micro-interacción: leve tilt del bloque frontal con el puntero
+      const fg = el.querySelector('[data-anim="fg"]');
+      if (fg) {
+        const bounds = () => el.getBoundingClientRect();
+        const onMove = (e) => {
+          const b = bounds();
+          const rx = ((e.clientY - (b.top + b.height/2)) / b.height) * -6; // grados
+          const ry = ((e.clientX - (b.left + b.width/2)) / b.width)  *  6;
+          gsap.to(fg, { rotateX: rx, rotateY: ry, transformPerspective: 900, duration: 0.25, ease: 'power2.out' });
+        };
+        const onLeave = () => gsap.to(fg, { rotateX: 0, rotateY: 0, duration: 0.3, ease: 'power2.out' });
+
+        el.addEventListener('pointermove', onMove);
+        el.addEventListener('pointerleave', onLeave);
+      }
+    })();
+  }
+</script>

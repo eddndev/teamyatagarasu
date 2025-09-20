@@ -1,5 +1,6 @@
 
 ---
+import SmoothScrollIsland from "../components/islands/SmoothScrollIsland.astro";
 import "../styles/global.css";
 const {
   title = "Team Yatagarasu | Indie Game Dev & Pixel Art by Yasu",
@@ -88,9 +89,11 @@ const jsonLdPerson = {
 
     <main id="content" class="flex-grow">
       <slot />
+      <SmoothScrollIsland client:load/>
     </main>
 
     <!-- Footer slot -->
     <slot name="footer" />
+    <!-- Smooth Scroll Island -->
   </body>
 </html>

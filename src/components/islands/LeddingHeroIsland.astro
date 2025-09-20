@@ -1,0 +1,33 @@
+---
+/** Carga diferida de Ledding cuando el Hero entra al viewport */
+---
+<div aria-hidden="true" class="hidden"></div>
+
+<script>
+  // Script procesado por Astro/Vite (ESM). Nada de is:inline.
+  const once = { fired:false };
+  const target = '#ledding-animation-container';
+
+  const boot = async () => {
+    if (once.fired) return;
+    once.fired = true;
+    const { default: initLeddingHero } = await import('../../lib/initLeddingHero.js');
+    initLeddingHero();
+    console.log('[Ledding] Hero iniciado');
+  };
+
+  // 1) Si ya es visible al cargar
+  const el = document.querySelector(target);
+  if (el && ('IntersectionObserver' in window)) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some(e => e.isIntersecting)) {
+        io.disconnect();
+        boot();
+      }
+    }, { rootMargin: '100px' });
+    io.observe(el);
+  } else {
+    // Fallback: sin IO, inicializa después del primer paint
+    requestAnimationFrame(boot);
+  }
+</script>
