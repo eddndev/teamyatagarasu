@@ -1,5 +1,7 @@
 ---
 import LeddingHeroIsland from "../islands/LeddingHeroIsland.astro";
+
+
 ---
 
 <section id="hero"
@@ -11,12 +13,9 @@ import LeddingHeroIsland from "../islands/LeddingHeroIsland.astro";
 
   <div id="hero-atmosphere" aria-hidden="true"
        class="absolute inset-0 z-10 pointer-events-none
-              /* Scanlines CRT (Efecto monitor antiguo) */
               bg-[repeating-linear-gradient(to_bottom,rgba(0,0,0,0.3)_0,rgba(0,0,0,0.3)_2px,transparent_2px,transparent_4px)]
-              /* (::after) Glow Central Rojo: Destaca el contenido y añade ambiente */
               after:absolute after:inset-0
               after:bg-[radial-gradient(ellipse_at_center,rgba(156,20,42,0.30)_0%,rgba(11,11,12,0)_65%)]
-              /* (::before) Viñeta sutil en los bordes */
               before:absolute before:inset-0
               before:bg-[radial-gradient(ellipse_at_center,transparent_60%,rgba(0,0,0,0.85)_100%)]
               ">
@@ -30,7 +29,7 @@ import LeddingHeroIsland from "../islands/LeddingHeroIsland.astro";
          // INICIANDO SISTEMA_
       </div>
 
-      <h1 class="max-w-3xl mb-10 text-xl sm:text-2xl lg:text-3xl text-gray-200/95 leading-relaxed [text-shadow:0_2px_8px_black]" data-anim="subtitle">
+      <h1 id="hero-title" class="max-w-3xl mb-10 text-xl sm:text-2xl lg:text-3xl text-gray-200/95 leading-relaxed [text-shadow:0_2px_8px_black]" data-anim="subtitle">
          Indie games con <strong class="font-semibold text-white">ADN retro</strong>.
             <br class="hidden sm:inline"/>
             Enfoque en <strong class="text-white">Pixel-art</strong>, <strong class="text-white">game feel</strong> y <strong class="text-white">rendimiento</strong>. Por <strong>Yasu</strong>.
@@ -43,7 +42,7 @@ import LeddingHeroIsland from "../islands/LeddingHeroIsland.astro";
       <span class="chip-retro group">
          <!-- Usando referencia a SVG sprite -->
          <svg aria-hidden="true" class="size-5 opacity-80 group-hover:opacity-100 transition-opacity">
-         <use href="#gamepad-icon"></use>
+         <use href="#icon-gamepad"></use>
          </svg>
       Gameplay & UX
       </span>
@@ -52,7 +51,7 @@ import LeddingHeroIsland from "../islands/LeddingHeroIsland.astro";
    <span class="chip-retro group border-[#9C142A]/70 bg-[#9C142A]/20 hover:bg-[#9C142A]/30">
          <!-- Usando el ID 'godot-icon' -->
     <svg aria-hidden="true" class="size-5 opacity-80 group-hover:opacity-100 transition-opacity text-[#FF5575]">
-     <use href="#godot-icon"></use>
+     <use href="#icon-puzzle"></use>
     </svg>
     Godot · Shaders
    </span>
@@ -60,7 +59,7 @@ import LeddingHeroIsland from "../islands/LeddingHeroIsland.astro";
       <!-- Chip 3 -->
    <span class="chip-retro group">
     <svg aria-hidden="true" class="size-5 opacity-80 group-hover:opacity-100 transition-opacity">
-     <use href="#code-icon"></use>
+     <use href="#icon-code"></use>
     </svg>
     Code & Tools
    </span>
@@ -94,3 +93,6 @@ import LeddingHeroIsland from "../islands/LeddingHeroIsland.astro";
  <!-- Carga diferida de Ledding -->
  <LeddingHeroIsland />
 </section>
+
+<script>
+</script>

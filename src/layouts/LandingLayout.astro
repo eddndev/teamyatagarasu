@@ -74,10 +74,9 @@ const jsonLdPerson = {
     <!-- JSON-LD Injection -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdOrg)} />
     <script type="application/ld+json" set:html={JSON.stringify(jsonLdPerson)} />
-
-     <!-- CWV: Precarga de fuente crítica para acelerar el renderizado del texto -->
-     <link rel="preload" href="/assets/fonts/PressStart2P.woff2" as="font" type="font/woff2" crossorigin>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   </head>
   <!-- Aplicamos el efecto scanlines -->
   <body class="min-h-screen flex flex-col scanlines">
@@ -89,11 +88,11 @@ const jsonLdPerson = {
 
     <main id="content" class="flex-grow">
       <slot />
-      <SmoothScrollIsland client:load/>
     </main>
 
     <!-- Footer slot -->
     <slot name="footer" />
     <!-- Smooth Scroll Island -->
+    <SmoothScrollIsland/>
   </body>
 </html>
