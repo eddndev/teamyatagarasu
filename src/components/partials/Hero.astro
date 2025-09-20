@@ -1,27 +1,14 @@
 ---
 import LeddingHeroIsland from "../islands/LeddingHeroIsland.astro";
-
-/**
-* Configuración del Logo.
-* Asegúrate de que los assets existan en public/assets/brand/
-*/
-const logoWidthAttr = 300;
-const logoHeightAttr = 141; // <-- CONFIRMA que esta altura es correcta para evitar CLS.
-// Ajustamos los tamaños para el nuevo diseño centrado y más impactante
-const logoClampMin = 200;  // Mínimo en móvil
-const logoClampMax = 340;  // Máximo en desktop
 ---
 
 <section id="hero"
  class="relative min-h-svh overflow-hidden bg-[#0B0B0C] text-gray-100 flex items-center justify-center"
  aria-label="Hero Team Yatagarasu">
 
-  <!-- 1. FONDO: Panel LED (Ledding) -->
  <div id="ledding-animation-container"
    class="absolute inset-0 z-0 pointer-events-none opacity-90"></div>
 
-  <!-- 2. ATMÓSFERA: Scanlines y Glow Retro -->
-  <!-- Usamos pseudo-elementos para combinar efectos en una sola capa -->
   <div id="hero-atmosphere" aria-hidden="true"
        class="absolute inset-0 z-10 pointer-events-none
               /* Scanlines CRT (Efecto monitor antiguo) */
@@ -35,32 +22,31 @@ const logoClampMax = 340;  // Máximo en desktop
               ">
   </div>
 
-  <!-- 3. CONTENIDO PRINCIPAL (Centrado y Estilizado) -->
- <div class="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 py-20
+   <div class="relative z-20 container mx-auto px-4 sm:px-6 lg:px-8 py-20
        flex flex-col items-center text-center">
 
     <!-- Indicador de estado (Estética HUD) -->
-  <div class="mb-6 text-xs uppercase tracking-[0.3em] text-[#9C142A] font-mono opacity-70 [text-shadow:0_0_5px_rgba(156,20,42,0.5)]" data-anim="hud-top">
-   // INICIANDO SISTEMA_
-  </div>
+      <div class="mb-6 text-xs uppercase tracking-[0.3em] text-[#9C142A] font-mono opacity-70 [text-shadow:0_0_5px_rgba(156,20,42,0.5)]" data-anim="hud-top">
+         // INICIANDO SISTEMA_
+      </div>
 
-  <h1 class="max-w-3xl mb-10 text-xl sm:text-2xl lg:text-3xl text-gray-200/95 leading-relaxed [text-shadow:0_2px_8px_black]" data-anim="subtitle">
-        Indie games con <strong class="font-semibold text-white">ADN retro</strong>.
-        <br class="hidden sm:inline"/>
-        Enfoque en <strong class="text-white">Pixel-art</strong>, <strong class="text-white">game feel</strong> y <strong class="text-white">rendimiento</strong>. Por <strong>Yasu</strong>.
-  </h1>
+      <h1 class="max-w-3xl mb-10 text-xl sm:text-2xl lg:text-3xl text-gray-200/95 leading-relaxed [text-shadow:0_2px_8px_black]" data-anim="subtitle">
+         Indie games con <strong class="font-semibold text-white">ADN retro</strong>.
+            <br class="hidden sm:inline"/>
+            Enfoque en <strong class="text-white">Pixel-art</strong>, <strong class="text-white">game feel</strong> y <strong class="text-white">rendimiento</strong>. Por <strong>Yasu</strong>.
+      </h1>
 
   <!-- HUD Chips (Rediseñados estilo Inventario/Skills con Clip-Path) -->
   <div class="flex flex-wrap justify-center gap-4 mb-12 text-sm" data-anim="hud">
 
       <!-- Chip 1 -->
-   <span class="chip-retro group">
-        <!-- Usando referencia a SVG sprite -->
-    <svg aria-hidden="true" class="size-5 opacity-80 group-hover:opacity-100 transition-opacity">
-     <use href="#gamepad-icon"></use>
-    </svg>
-    Gameplay & UX
-   </span>
+      <span class="chip-retro group">
+         <!-- Usando referencia a SVG sprite -->
+         <svg aria-hidden="true" class="size-5 opacity-80 group-hover:opacity-100 transition-opacity">
+         <use href="#gamepad-icon"></use>
+         </svg>
+      Gameplay & UX
+      </span>
 
       <!-- Chip 2: Destacado -->
    <span class="chip-retro group border-[#9C142A]/70 bg-[#9C142A]/20 hover:bg-[#9C142A]/30">
